@@ -10,6 +10,9 @@ import LivePage from "./pages/LivePage";
 import ScoresPage from "./pages/ScoresPage";
 import FantasyPage from "./pages/FantasyPage";
 import MessagesPage from "./pages/MessagesPage";
+import MarketplacePage from "./pages/MarketplacePage";
+import NewsPage from "./pages/NewsPage";
+import ClubStatementsPage from "./pages/ClubStatementsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +30,9 @@ const App = () => (
             <Route path="/scores" element={<ScoresPage />} />
             <Route path="/fantasy" element={<FantasyPage />} />
             <Route path="/messages" element={<MessagesPage />} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/news" element={<NewsPage />} />
+            <Route path="/club-statements" element={<ClubStatementsPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <FloatingPostButton />

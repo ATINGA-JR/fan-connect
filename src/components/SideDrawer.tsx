@@ -1,4 +1,4 @@
-import { X, User, Bookmark, List, Radio, Ticket, Settings, HelpCircle, Users, Mic } from "lucide-react";
+import { X, User, Bookmark, List, Radio, Ticket, Settings, HelpCircle, Users, Mic, ShoppingBag, Newspaper, Building2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface SideDrawerProps {
@@ -14,6 +14,12 @@ const menuItems = [
   { label: "Lists", icon: List, path: "/lists" },
   { label: "Creator Studio", icon: Radio, path: "/creator" },
   { label: "Tickets", icon: Ticket, path: "/tickets" },
+];
+
+const newSections = [
+  { label: "Marketplace", icon: ShoppingBag, path: "/marketplace", desc: "Vendors & merch" },
+  { label: "News & Articles", icon: Newspaper, path: "/news", desc: "Journos & outlets" },
+  { label: "Club Statements", icon: Building2, path: "/club-statements", desc: "Official updates" },
 ];
 
 const systemItems = [
@@ -77,6 +83,26 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
               >
                 <item.icon className="h-5 w-5 text-muted-foreground" />
                 <span className="text-sm font-medium">{item.label}</span>
+              </button>
+            ))}
+
+            <div className="my-2 border-t border-border" />
+
+            {/* New sections: Marketplace, News, Club Statements */}
+            <p className="px-4 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Explore
+            </p>
+            {newSections.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => { onClose(); navigate(item.path); }}
+                className="flex w-full items-center gap-4 px-4 py-3 text-foreground transition-colors hover:bg-secondary"
+              >
+                <item.icon className="h-5 w-5 text-primary" />
+                <div className="text-left">
+                  <span className="text-sm font-medium">{item.label}</span>
+                  <p className="text-[11px] text-muted-foreground">{item.desc}</p>
+                </div>
               </button>
             ))}
 

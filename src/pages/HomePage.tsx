@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Search, Bell, Menu } from "lucide-react";
 import SideDrawer from "../components/SideDrawer";
 import BantCard from "../components/BantCard";
+import CommunityFeed from "../components/CommunityFeed";
 import kickoffLogo from "@/assets/kickoff-logo.png";
 
 const mockBants = [
@@ -57,9 +58,17 @@ const mockBants = [
   },
 ];
 
+type TabId = "foryou" | "following" | "community";
+
+const tabs: { id: TabId; label: string }[] = [
+  { id: "foryou", label: "For You" },
+  { id: "following", label: "Following" },
+  { id: "community", label: "Community" },
+];
+
 const HomePage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState<"foryou" | "following">("foryou");
+  const [activeTab, setActiveTab] = useState<TabId>("foryou");
 
   return (
     <div className="min-h-screen bg-background pb-16">
@@ -82,36 +91,35 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Tabs */}
-        <div className="flex">
-          <button
-            onClick={() => setActiveTab("foryou")}
-            className={`flex-1 py-3 text-sm font-semibold transition-colors ${
-              activeTab === "foryou"
-                ? "text-foreground border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            For You
-          </button>
-          <button
-            onClick={() => setActiveTab("following")}
-            className={`flex-1 py-3 text-sm font-semibold transition-colors ${
-              activeTab === "following"
-                ? "text-foreground border-b-2 border-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Following
-          </button>
+        {/* Toggle Tabs */}
+        <div className="flex items-center gap-1 px-3 pb-3">
+          <div className="flex w-full rounded-lg bg-secondary p-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 rounded-md py-2 text-xs font-semibold transition-all ${
+                  activeTab === tab.id
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
       {/* Feed */}
       <div>
-        {mockBants.map((bant, i) => (
-          <BantCard key={i} {...bant} />
-        ))}
+        {activeTab === "community" ? (
+          <CommunityFeed />
+        ) : (
+          mockBants.map((bant, i) => (
+            <BantCard key={i} {...bant} />
+          ))
+        )}
       </div>
     </div>
   );
