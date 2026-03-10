@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Search, Bell, Menu } from "lucide-react";
+import { Search, Bell, Menu, ChevronDown } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import SideDrawer from "../components/SideDrawer";
 import BantCard from "../components/BantCard";
 import CommunityFeed from "../components/CommunityFeed";
