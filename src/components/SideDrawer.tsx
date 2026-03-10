@@ -17,7 +17,7 @@ const menuItems = [
 ];
 
 const newSections = [
-  { label: "Marketplace", icon: ShoppingBag, path: "/marketplace", desc: "Vendors & merch" },
+  { label: "FanBoot", icon: ShoppingBag, path: "/marketplace", desc: "Vendors & merch" },
   { label: "News & Articles", icon: Newspaper, path: "/news", desc: "Journos & outlets" },
   { label: "Club Statements", icon: Building2, path: "/club-statements", desc: "Official updates" },
 ];
