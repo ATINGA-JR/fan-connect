@@ -8,7 +8,7 @@ interface SideDrawerProps {
 
 const menuItems = [
   { label: "Profile", icon: User, path: "/profile" },
-  { label: "Football Hub", icon: Mic, path: "/hub" },
+  { label: "The Dugout", icon: Mic, path: "/hub" },
   { label: "Communities", icon: Users, path: "/communities" },
   { label: "Bookmarks", icon: Bookmark, path: "/bookmarks" },
   { label: "Lists", icon: List, path: "/lists" },
