@@ -61,7 +61,7 @@ const BantCard = ({ name, username, time, content, tags, replies, rebants, likes
               <span className="text-xs">{replies}</span>
             </button>
             <button className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-pitch-glow">
-              <Repeat2 className="h-4 w-4" />
+              <GoalpostIcon className="h-4 w-4" />
               <span className="text-xs">{rebants}</span>
             </button>
             <button

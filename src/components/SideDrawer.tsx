@@ -88,7 +88,7 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
 
             <div className="my-2 border-t border-border" />
 
-            {/* New sections: Marketplace, News, Club Statements */}
+            {/* New sections: FanBoot, News, Club Statements */}
             <p className="px-4 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               Explore
             </p>
