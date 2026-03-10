@@ -27,6 +27,8 @@ const App = () => (
       <BrowserRouter>
         <div className="mx-auto max-w-lg">
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/live" element={<LivePage />} />
             <Route path="/scores" element={<ScoresPage />} />
