@@ -98,23 +98,20 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Toggle Tabs */}
-        <div className="flex items-center gap-1 px-3 pb-3">
-          <div className="flex w-full rounded-lg bg-secondary p-1">
-            {tabs.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 rounded-md py-2 text-xs font-semibold transition-all ${
-                  activeTab === tab.id
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
+        {/* Feed Selector Dropdown */}
+        <div className="px-3 pb-3">
+          <Select value={activeTab} onValueChange={(val) => setActiveTab(val as TabId)}>
+            <SelectTrigger className="w-full rounded-lg border-border bg-secondary text-foreground">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {tabs.map((tab) => (
+                <SelectItem key={tab.id} value={tab.id}>
+                  {tab.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </header>
 
