@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import BottomNav from "./components/BottomNav";
 import FloatingPostButton from "./components/FloatingPostButton";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import LivePage from "./pages/LivePage";
 import ScoresPage from "./pages/ScoresPage";
@@ -25,6 +27,8 @@ const App = () => (
       <BrowserRouter>
         <div className="mx-auto max-w-lg">
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/live" element={<LivePage />} />
             <Route path="/scores" element={<ScoresPage />} />
