@@ -8,7 +8,7 @@ interface SideDrawerProps {
 
 const menuItems = [
   { label: "Profile", icon: User, path: "/profile" },
-  { label: "Football Hub", icon: Mic, path: "/hub" },
+  { label: "The Dugout", icon: Mic, path: "/hub" },
   { label: "Communities", icon: Users, path: "/communities" },
   { label: "Bookmarks", icon: Bookmark, path: "/bookmarks" },
   { label: "Lists", icon: List, path: "/lists" },
@@ -17,7 +17,7 @@ const menuItems = [
 ];
 
 const newSections = [
-  { label: "Marketplace", icon: ShoppingBag, path: "/marketplace", desc: "Vendors & merch" },
+  { label: "FanBoot", icon: ShoppingBag, path: "/marketplace", desc: "Vendors & merch" },
   { label: "News & Articles", icon: Newspaper, path: "/news", desc: "Journos & outlets" },
   { label: "Club Statements", icon: Building2, path: "/club-statements", desc: "Official updates" },
 ];
@@ -88,7 +88,7 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
 
             <div className="my-2 border-t border-border" />
 
-            {/* New sections: Marketplace, News, Club Statements */}
+            {/* New sections: FanBoot, News, Club Statements */}
             <p className="px-4 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
               Explore
             </p>

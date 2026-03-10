@@ -1,5 +1,14 @@
-import { MessageSquare, Repeat2, Heart, Share, Bookmark } from "lucide-react";
+import { MessageSquare, Heart, Share, Bookmark } from "lucide-react";
 import { useState } from "react";
+
+/* Simple goalpost icon – a rectangular frame */
+const GoalpostIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
+    <rect x="2" y="3" width="12" height="9" rx="0.5" />
+    <line x1="2" y1="12" x2="2" y2="15" />
+    <line x1="14" y1="12" x2="14" y2="15" />
+  </svg>
+);
 
 interface BantCardProps {
   name: string;
@@ -52,7 +61,7 @@ const BantCard = ({ name, username, time, content, tags, replies, rebants, likes
               <span className="text-xs">{replies}</span>
             </button>
             <button className="flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-pitch-glow">
-              <Repeat2 className="h-4 w-4" />
+              <GoalpostIcon className="h-4 w-4" />
               <span className="text-xs">{rebants}</span>
             </button>
             <button

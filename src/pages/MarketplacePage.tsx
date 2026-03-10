@@ -21,7 +21,7 @@ const MarketplacePage = () => {
             <ArrowLeft className="h-5 w-5" />
           </button>
           <ShoppingBag className="h-5 w-5 text-primary" />
-          <h1 className="text-base font-bold text-foreground">Marketplace</h1>
+          <h1 className="text-base font-bold text-foreground">FanBoot</h1>
         </div>
 
         <div className="px-4 pb-3">
