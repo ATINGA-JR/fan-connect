@@ -30,6 +30,7 @@ const systemItems = [
 
 const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
   const navigate = useNavigate();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <>
