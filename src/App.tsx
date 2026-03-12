@@ -16,6 +16,8 @@ import MessagesPage from "./pages/MessagesPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import NewsPage from "./pages/NewsPage";
 import ClubStatementsPage from "./pages/ClubStatementsPage";
+import ProfilePage from "./pages/ProfilePage";
+import DugoutPage from "./pages/DugoutPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
