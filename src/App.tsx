@@ -16,6 +16,8 @@ import MessagesPage from "./pages/MessagesPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import NewsPage from "./pages/NewsPage";
 import ClubStatementsPage from "./pages/ClubStatementsPage";
+import ProfilePage from "./pages/ProfilePage";
+import DugoutPage from "./pages/DugoutPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +41,8 @@ const App = () => (
               <Route path="/marketplace" element={<MarketplacePage />} />
               <Route path="/news" element={<NewsPage />} />
               <Route path="/club-statements" element={<ClubStatementsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/hub" element={<DugoutPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingPostButton />
