@@ -41,6 +41,8 @@ const App = () => (
               <Route path="/marketplace" element={<MarketplacePage />} />
               <Route path="/news" element={<NewsPage />} />
               <Route path="/club-statements" element={<ClubStatementsPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/hub" element={<DugoutPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingPostButton />
