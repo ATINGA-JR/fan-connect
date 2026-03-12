@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ThemeProvider } from "@/hooks/use-theme";
 import BottomNav from "./components/BottomNav";
 import FloatingPostButton from "./components/FloatingPostButton";
 import LoginPage from "./pages/LoginPage";
@@ -21,29 +22,31 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="mx-auto max-w-lg">
-          <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/live" element={<LivePage />} />
-            <Route path="/scores" element={<ScoresPage />} />
-            <Route path="/fantasy" element={<FantasyPage />} />
-            <Route path="/messages" element={<MessagesPage />} />
-            <Route path="/marketplace" element={<MarketplacePage />} />
-            <Route path="/news" element={<NewsPage />} />
-            <Route path="/club-statements" element={<ClubStatementsPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <FloatingPostButton />
-          <BottomNav />
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <div className="mx-auto max-w-lg">
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="/live" element={<LivePage />} />
+              <Route path="/scores" element={<ScoresPage />} />
+              <Route path="/fantasy" element={<FantasyPage />} />
+              <Route path="/messages" element={<MessagesPage />} />
+              <Route path="/marketplace" element={<MarketplacePage />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/club-statements" element={<ClubStatementsPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <FloatingPostButton />
+            <BottomNav />
+          </div>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
