@@ -111,10 +111,10 @@ const DugoutPage = () => {
         {/* Content type filter */}
         <div className="flex gap-2 px-4 py-2.5">
           {([
-            { id: "all", label: "All" },
-            { id: "video", label: "Videos", icon: Video },
-            { id: "podcast", label: "Podcasts", icon: Headphones },
-          ] as const).map((f) => (
+            { id: "all" as const, label: "All", icon: null },
+            { id: "video" as const, label: "Videos", icon: Video },
+            { id: "podcast" as const, label: "Podcasts", icon: Headphones },
+          ]).map((f) => (
             <button
               key={f.id}
               onClick={() => setContentFilter(f.id)}
