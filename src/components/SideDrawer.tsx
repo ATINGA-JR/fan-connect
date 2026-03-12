@@ -110,6 +110,17 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
 
             <div className="my-2 border-t border-border" />
 
+            {/* Theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="flex w-full items-center gap-4 px-4 py-3 text-foreground transition-colors hover:bg-secondary"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5 text-muted-foreground" /> : <Moon className="h-5 w-5 text-muted-foreground" />}
+              <span className="text-sm font-medium">{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
+            </button>
+
+            <div className="my-2 border-t border-border" />
+
             {systemItems.map((item) => (
               <button
                 key={item.label}
