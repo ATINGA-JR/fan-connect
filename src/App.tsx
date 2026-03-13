@@ -18,6 +18,8 @@ import NewsPage from "./pages/NewsPage";
 import ClubStatementsPage from "./pages/ClubStatementsPage";
 import ProfilePage from "./pages/ProfilePage";
 import DugoutPage from "./pages/DugoutPage";
+import CommunityPage from "./pages/CommunityPage";
+import BookmarksPage from "./pages/BookmarksPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
