@@ -1,4 +1,4 @@
-import { X, User, Bookmark, List, Radio, Ticket, Settings, HelpCircle, Users, Mic, ShoppingBag, Newspaper, Building2, Sun, Moon } from "lucide-react";
+import { X, User, Bookmark, Radio, Ticket, Settings, HelpCircle, Users, Mic, ShoppingBag, Newspaper, Building2, Sun, Moon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@/hooks/use-theme";
 

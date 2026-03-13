@@ -49,6 +49,8 @@ const App = () => (
               <Route path="/hub" element={<DugoutPage />} />
               <Route path="/communities" element={<CommunityPage />} />
               <Route path="/bookmarks" element={<BookmarksPage />} />
+              <Route path="/tickets" element={<TicketsPage />} />
+              <Route path="/creator" element={<CreatorStudioPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingPostButton />
