@@ -94,8 +94,8 @@ const ScoresPage = () => {
 
       {activeTab === "Matches" && (
         <div className="p-4">
-          {/* Filters */}
-          <div className="mb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+          {/* Status Filters */}
+          <div className="mb-3 flex gap-2 overflow-x-auto scrollbar-hide">
             {matchFilters.map((f) => (
               <button
                 key={f}
@@ -111,13 +111,39 @@ const ScoresPage = () => {
             ))}
           </div>
 
-          <div className="grid gap-3">
-            {filteredMatches.length > 0 ? (
-              filteredMatches.map((match, i) => <MatchCard key={i} {...match} />)
-            ) : (
-              <p className="py-12 text-center text-sm text-muted-foreground">No matches in this category</p>
-            )}
+          {/* Competition Filters */}
+          <div className="mb-4 flex gap-2 overflow-x-auto scrollbar-hide">
+            {competitions.map((c) => (
+              <button
+                key={c}
+                onClick={() => setSelectedCompetition(c)}
+                className={`shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors ${
+                  selectedCompetition === c
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {c}
+              </button>
+            ))}
           </div>
+
+          {Object.keys(groupedMatches).length > 0 ? (
+            <div className="grid gap-5">
+              {Object.entries(groupedMatches).map(([comp, matches]) => (
+                <div key={comp}>
+                  <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-primary">{comp}</h3>
+                  <div className="grid gap-2">
+                    {matches.map((match, i) => (
+                      <MatchCard key={i} {...match} />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="py-12 text-center text-sm text-muted-foreground">No matches in this category</p>
+          )}
         </div>
       )}
 
