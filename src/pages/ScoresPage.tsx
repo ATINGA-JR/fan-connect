@@ -6,13 +6,32 @@ import MatchCard from "../components/MatchCard";
 const tabs = ["Matches", "Tables", "Stats"] as const;
 const matchFilters = ["Live", "Today", "Upcoming", "Finished"] as const;
 
+const competitions = ["All", "Premier League", "La Liga", "Champions League", "Serie A", "Bundesliga", "Ligue 1"] as const;
+
 const mockMatches = [
-  { homeTeam: "Real Madrid", awayTeam: "FC Barcelona", homeScore: 2, awayScore: 1, time: "67'", competition: "La Liga", status: "live" as const },
+  // Premier League
   { homeTeam: "Liverpool", awayTeam: "Man City", homeScore: 1, awayScore: 1, time: "34'", competition: "Premier League", status: "live" as const },
   { homeTeam: "Arsenal", awayTeam: "Chelsea", time: "20:00", competition: "Premier League", status: "upcoming" as const },
+  { homeTeam: "Tottenham", awayTeam: "Newcastle", homeScore: 2, awayScore: 0, time: "FT", competition: "Premier League", status: "finished" as const },
+  { homeTeam: "Man United", awayTeam: "Aston Villa", time: "17:30", competition: "Premier League", status: "upcoming" as const },
+  // La Liga
+  { homeTeam: "Real Madrid", awayTeam: "FC Barcelona", homeScore: 2, awayScore: 1, time: "67'", competition: "La Liga", status: "live" as const },
+  { homeTeam: "Atletico Madrid", awayTeam: "Sevilla", time: "21:00", competition: "La Liga", status: "upcoming" as const },
+  { homeTeam: "Real Sociedad", awayTeam: "Villarreal", homeScore: 1, awayScore: 1, time: "FT", competition: "La Liga", status: "finished" as const },
+  // Champions League
   { homeTeam: "PSG", awayTeam: "Bayern Munich", time: "21:00", competition: "Champions League", status: "upcoming" as const },
+  { homeTeam: "Real Madrid", awayTeam: "Man City", time: "21:00", competition: "Champions League", status: "upcoming" as const },
+  { homeTeam: "Inter Milan", awayTeam: "Atletico Madrid", homeScore: 1, awayScore: 0, time: "FT", competition: "Champions League", status: "finished" as const },
+  // Serie A
   { homeTeam: "Inter Milan", awayTeam: "AC Milan", homeScore: 3, awayScore: 1, time: "FT", competition: "Serie A", status: "finished" as const },
+  { homeTeam: "Juventus", awayTeam: "Napoli", homeScore: 0, awayScore: 0, time: "12'", competition: "Serie A", status: "live" as const },
+  { homeTeam: "Roma", awayTeam: "Lazio", time: "20:45", competition: "Serie A", status: "upcoming" as const },
+  // Bundesliga
   { homeTeam: "Dortmund", awayTeam: "RB Leipzig", homeScore: 2, awayScore: 2, time: "FT", competition: "Bundesliga", status: "finished" as const },
+  { homeTeam: "Bayern Munich", awayTeam: "Leverkusen", time: "18:30", competition: "Bundesliga", status: "upcoming" as const },
+  // Ligue 1
+  { homeTeam: "PSG", awayTeam: "Marseille", homeScore: 2, awayScore: 0, time: "55'", competition: "Ligue 1", status: "live" as const },
+  { homeTeam: "Lyon", awayTeam: "Monaco", time: "21:00", competition: "Ligue 1", status: "upcoming" as const },
 ];
 
 const standings = [
