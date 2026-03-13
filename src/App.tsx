@@ -18,6 +18,8 @@ import NewsPage from "./pages/NewsPage";
 import ClubStatementsPage from "./pages/ClubStatementsPage";
 import ProfilePage from "./pages/ProfilePage";
 import DugoutPage from "./pages/DugoutPage";
+import CommunityPage from "./pages/CommunityPage";
+import BookmarksPage from "./pages/BookmarksPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +45,8 @@ const App = () => (
               <Route path="/club-statements" element={<ClubStatementsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/hub" element={<DugoutPage />} />
+              <Route path="/communities" element={<CommunityPage />} />
+              <Route path="/bookmarks" element={<BookmarksPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingPostButton />
