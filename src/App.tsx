@@ -20,6 +20,8 @@ import ProfilePage from "./pages/ProfilePage";
 import DugoutPage from "./pages/DugoutPage";
 import CommunityPage from "./pages/CommunityPage";
 import BookmarksPage from "./pages/BookmarksPage";
+import TicketsPage from "./pages/TicketsPage";
+import CreatorStudioPage from "./pages/CreatorStudioPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
