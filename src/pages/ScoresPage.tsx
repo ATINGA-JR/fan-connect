@@ -46,13 +46,23 @@ const ScoresPage = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<typeof tabs[number]>("Matches");
   const [matchFilter, setMatchFilter] = useState<typeof matchFilters[number]>("Live");
+  const [selectedCompetition, setSelectedCompetition] = useState<typeof competitions[number]>("All");
 
   const filteredMatches = mockMatches.filter((m) => {
-    if (matchFilter === "Live") return m.status === "live";
-    if (matchFilter === "Upcoming") return m.status === "upcoming";
-    if (matchFilter === "Finished") return m.status === "finished";
-    return true;
+    const statusMatch =
+      matchFilter === "Live" ? m.status === "live" :
+      matchFilter === "Upcoming" ? m.status === "upcoming" :
+      matchFilter === "Finished" ? m.status === "finished" : true;
+    const compMatch = selectedCompetition === "All" || m.competition === selectedCompetition;
+    return statusMatch && compMatch;
   });
+
+  // Group matches by competition
+  const groupedMatches = filteredMatches.reduce<Record<string, typeof filteredMatches>>((acc, match) => {
+    if (!acc[match.competition]) acc[match.competition] = [];
+    acc[match.competition].push(match);
+    return acc;
+  }, {});
 
   return (
     <div className="min-h-screen bg-background pb-16">
