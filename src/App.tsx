@@ -45,6 +45,8 @@ const App = () => (
               <Route path="/club-statements" element={<ClubStatementsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/hub" element={<DugoutPage />} />
+              <Route path="/communities" element={<CommunityPage />} />
+              <Route path="/bookmarks" element={<BookmarksPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingPostButton />
