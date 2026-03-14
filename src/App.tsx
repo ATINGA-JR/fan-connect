@@ -52,6 +52,7 @@ const App = () => (
               <Route path="/bookmarks" element={<BookmarksPage />} />
               <Route path="/tickets" element={<TicketsPage />} />
               <Route path="/creator" element={<CreatorStudioPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <FloatingPostButton />
