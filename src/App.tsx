@@ -22,6 +22,7 @@ import CommunityPage from "./pages/CommunityPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import TicketsPage from "./pages/TicketsPage";
 import CreatorStudioPage from "./pages/CreatorStudioPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
