@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, ChevronDown } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import GoogleButton from "@/components/GoogleButton";
 import kickoffLogo from "@/assets/kickoff-logo.png";
 
 const countries = [
@@ -67,13 +70,47 @@ const RegisterPage = () => {
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
   };
 
+  const [submitting, setSubmitting] = useState(false);
+
   const handleNext = () => {
     if (!email || !fullName || !username || !password || !confirmPassword || !dob || !country) return;
     if (password !== confirmPassword) return;
     setStep(2);
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    if (!favoriteLeague || !favoriteClub || !favoritePlayer) {
+      toast.error("Please complete your football interests");
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`,
+        data: {
+          username,
+          display_name: fullName,
+          full_name: fullName,
+          phone,
+          country,
+          date_of_birth: dob,
+          favorite_league: favoriteLeague,
+          favorite_club: favoriteClub,
+          favorite_player: favoritePlayer,
+          other_leagues: otherLeagues,
+          other_clubs: otherClubs,
+          other_players: otherPlayers,
+        },
+      },
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Sign up failed", { description: error.message });
+      return;
+    }
+    toast.success("Welcome to KickOff!");
     navigate("/");
   };
 
