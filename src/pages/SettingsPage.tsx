@@ -4,12 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { useTheme } from "@/hooks/use-theme";
+import { useAuth } from "@/hooks/use-auth";
 
 type SettingsSection = "main" | "account" | "privacy" | "notifications" | "display";
 
 const SettingsPage = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { signOut } = useAuth();
   const [section, setSection] = useState<SettingsSection>("main");
 
   // Privacy toggles
@@ -204,6 +206,15 @@ const SettingsPage = () => {
           </button>
         </div>
       )}
+
+      <div className="px-4 py-6">
+        <button
+          onClick={async () => { await signOut(); navigate("/login"); }}
+          className="flex w-full items-center justify-center gap-2 rounded-lg border border-destructive/40 bg-destructive/5 py-3 text-sm font-semibold text-destructive hover:bg-destructive/10"
+        >
+          <LogOut className="h-4 w-4" /> Log out
+        </button>
+      </div>
     </div>
   );
 };

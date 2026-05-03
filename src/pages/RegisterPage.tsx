@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, ChevronDown } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import GoogleButton from "@/components/GoogleButton";
 import kickoffLogo from "@/assets/kickoff-logo.png";
 
 const countries = [
@@ -67,13 +70,47 @@ const RegisterPage = () => {
     setter(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
   };
 
+  const [submitting, setSubmitting] = useState(false);
+
   const handleNext = () => {
     if (!email || !fullName || !username || !password || !confirmPassword || !dob || !country) return;
     if (password !== confirmPassword) return;
     setStep(2);
   };
 
-  const handleFinish = () => {
+  const handleFinish = async () => {
+    if (!favoriteLeague || !favoriteClub || !favoritePlayer) {
+      toast.error("Please complete your football interests");
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`,
+        data: {
+          username,
+          display_name: fullName,
+          full_name: fullName,
+          phone,
+          country,
+          date_of_birth: dob,
+          favorite_league: favoriteLeague,
+          favorite_club: favoriteClub,
+          favorite_player: favoritePlayer,
+          other_leagues: otherLeagues,
+          other_clubs: otherClubs,
+          other_players: otherPlayers,
+        },
+      },
+    });
+    setSubmitting(false);
+    if (error) {
+      toast.error("Sign up failed", { description: error.message });
+      return;
+    }
+    toast.success("Welcome to KickOff!");
     navigate("/");
   };
 
@@ -157,6 +194,13 @@ const RegisterPage = () => {
             <Button onClick={handleNext} className="w-full gradient-pitch text-primary-foreground font-semibold mt-4">
               Next → Football Interests
             </Button>
+
+            <div className="relative my-2">
+              <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border" /></div>
+              <div className="relative flex justify-center text-xs"><span className="bg-background px-2 text-muted-foreground">or</span></div>
+            </div>
+
+            <GoogleButton label="Sign up with Google" />
 
             <p className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
@@ -271,11 +315,11 @@ const RegisterPage = () => {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <Button variant="outline" onClick={() => setStep(1)} className="flex-1">
+              <Button variant="outline" onClick={() => setStep(1)} className="flex-1" disabled={submitting}>
                 Back
               </Button>
-              <Button onClick={handleFinish} className="flex-1 gradient-pitch text-primary-foreground font-semibold">
-                Finish → Home
+              <Button onClick={handleFinish} disabled={submitting} className="flex-1 gradient-pitch text-primary-foreground font-semibold">
+                {submitting ? "Creating..." : "Finish → Home"}
               </Button>
             </div>
           </div>
