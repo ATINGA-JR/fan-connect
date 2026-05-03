@@ -1,4 +1,4 @@
-import { X, User, Bookmark, Radio, Ticket, Settings, HelpCircle, Users, Mic, ShoppingBag, Newspaper, Building2, Sun, Moon } from "lucide-react";
+import { X, User, Bookmark, Radio, Settings, HelpCircle, Users, Mic, ShoppingBag, Newspaper, Building2, Sun, Moon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -13,7 +13,6 @@ const menuItems = [
   { label: "Communities", icon: Users, path: "/communities" },
   { label: "Bookmarks", icon: Bookmark, path: "/bookmarks" },
   { label: "Creator Studio", icon: Radio, path: "/creator" },
-  { label: "Tickets", icon: Ticket, path: "/tickets" },
 ];
 
 const newSections = [

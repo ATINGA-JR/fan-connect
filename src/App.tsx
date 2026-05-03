@@ -20,7 +20,7 @@ import ProfilePage from "./pages/ProfilePage";
 import DugoutPage from "./pages/DugoutPage";
 import CommunityPage from "./pages/CommunityPage";
 import BookmarksPage from "./pages/BookmarksPage";
-import TicketsPage from "./pages/TicketsPage";
+
 import CreatorStudioPage from "./pages/CreatorStudioPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
@@ -50,7 +50,7 @@ const App = () => (
               <Route path="/hub" element={<DugoutPage />} />
               <Route path="/communities" element={<CommunityPage />} />
               <Route path="/bookmarks" element={<BookmarksPage />} />
-              <Route path="/tickets" element={<TicketsPage />} />
+              
               <Route path="/creator" element={<CreatorStudioPage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />
