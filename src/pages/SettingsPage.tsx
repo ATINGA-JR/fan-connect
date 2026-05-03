@@ -11,6 +11,7 @@ type SettingsSection = "main" | "account" | "privacy" | "notifications" | "displ
 const SettingsPage = () => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { signOut } = useAuth();
   const [section, setSection] = useState<SettingsSection>("main");
 
   // Privacy toggles
