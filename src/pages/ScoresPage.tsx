@@ -219,6 +219,64 @@ const ScoresPage = () => {
           </div>
         </div>
       )}
+
+      {activeTab === "Live Streams" && (
+        <div className="p-4">
+          <p className="mb-3 text-xs text-muted-foreground">Tune in to live matches streamed on KickOff</p>
+          <div className="grid gap-3">
+            {liveStreams.map((s, i) => (
+              <button key={i} className="group overflow-hidden rounded-lg border border-border bg-card text-left transition-colors hover:bg-secondary/30">
+                <div className={`relative aspect-video w-full bg-gradient-to-br ${s.thumbnail}`}>
+                  <span className="absolute left-2 top-2 flex items-center gap-1.5 rounded-full bg-live/90 px-2 py-0.5 text-[10px] font-bold uppercase text-primary-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse-live" />
+                    Live · {s.minute}
+                  </span>
+                  <span className="absolute right-2 bottom-2 rounded bg-background/80 px-1.5 py-0.5 text-[10px] font-medium text-foreground">
+                    {s.viewers.toLocaleString()} watching
+                  </span>
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/90">
+                      <Play className="h-5 w-5 fill-primary-foreground text-primary-foreground" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <p className="text-sm font-semibold text-foreground">{s.match}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">{s.competition}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "Highlights" && (
+        <div className="p-4">
+          <p className="mb-3 text-xs text-muted-foreground">Recap completed matches with full highlights</p>
+          <div className="grid gap-3">
+            {highlights.map((h, i) => (
+              <button key={i} className="group overflow-hidden rounded-lg border border-border bg-card text-left transition-colors hover:bg-secondary/30">
+                <div className={`relative aspect-video w-full bg-gradient-to-br ${h.thumbnail}`}>
+                  <span className="absolute right-2 bottom-2 rounded bg-background/80 px-1.5 py-0.5 text-[10px] font-medium text-foreground">
+                    {h.duration}
+                  </span>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-background/70 transition-transform group-hover:scale-110">
+                      <Play className="h-5 w-5 fill-foreground text-foreground" />
+                    </div>
+                  </div>
+                </div>
+                <div className="p-3">
+                  <p className="text-sm font-semibold text-foreground">{h.match}</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">
+                    {h.competition} · {h.views} views · {h.posted}
+                  </p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
