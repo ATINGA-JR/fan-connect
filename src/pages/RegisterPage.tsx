@@ -195,6 +195,13 @@ const RegisterPage = () => {
               Next → Football Interests
             </Button>
 
+            <div className="relative my-2">
+              <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border" /></div>
+              <div className="relative flex justify-center text-xs"><span className="bg-background px-2 text-muted-foreground">or</span></div>
+            </div>
+
+            <GoogleButton label="Sign up with Google" />
+
             <p className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
               <button onClick={() => navigate("/login")} className="text-primary hover:underline">Log in</button>
@@ -308,11 +315,11 @@ const RegisterPage = () => {
             </div>
 
             <div className="flex gap-3 mt-4">
-              <Button variant="outline" onClick={() => setStep(1)} className="flex-1">
+              <Button variant="outline" onClick={() => setStep(1)} className="flex-1" disabled={submitting}>
                 Back
               </Button>
-              <Button onClick={handleFinish} className="flex-1 gradient-pitch text-primary-foreground font-semibold">
-                Finish → Home
+              <Button onClick={handleFinish} disabled={submitting} className="flex-1 gradient-pitch text-primary-foreground font-semibold">
+                {submitting ? "Creating..." : "Finish → Home"}
               </Button>
             </div>
           </div>
