@@ -42,6 +42,21 @@ const standings = [
   { pos: 5, team: "Tottenham", p: 30, gd: "+12", pts: 56 },
 ];
 
+const liveStreams = [
+  { match: "Liverpool vs Man City", competition: "Premier League", viewers: 124800, minute: "34'", thumbnail: "from-red-500 to-rose-700" },
+  { match: "Real Madrid vs FC Barcelona", competition: "La Liga", viewers: 218400, minute: "67'", thumbnail: "from-blue-600 to-indigo-800" },
+  { match: "Juventus vs Napoli", competition: "Serie A", viewers: 54200, minute: "12'", thumbnail: "from-zinc-700 to-zinc-900" },
+  { match: "PSG vs Marseille", competition: "Ligue 1", viewers: 71300, minute: "55'", thumbnail: "from-sky-600 to-blue-900" },
+];
+
+const highlights = [
+  { match: "Tottenham 2 - 0 Newcastle", competition: "Premier League", duration: "8:42", views: "1.2M", posted: "2h ago", thumbnail: "from-slate-700 to-slate-900" },
+  { match: "Inter Milan 3 - 1 AC Milan", competition: "Serie A", duration: "10:15", views: "3.4M", posted: "1d ago", thumbnail: "from-blue-800 to-red-700" },
+  { match: "Dortmund 2 - 2 RB Leipzig", competition: "Bundesliga", duration: "7:28", views: "640K", posted: "1d ago", thumbnail: "from-yellow-600 to-amber-800" },
+  { match: "Inter Milan 1 - 0 Atletico Madrid", competition: "Champions League", duration: "9:03", views: "2.8M", posted: "3d ago", thumbnail: "from-indigo-700 to-purple-900" },
+  { match: "Real Sociedad 1 - 1 Villarreal", competition: "La Liga", duration: "6:50", views: "420K", posted: "4d ago", thumbnail: "from-blue-700 to-yellow-600" },
+];
+
 const ScoresPage = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<typeof tabs[number]>("Matches");
