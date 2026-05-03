@@ -13,7 +13,6 @@ const menuItems = [
   { label: "Communities", icon: Users, path: "/communities" },
   { label: "Bookmarks", icon: Bookmark, path: "/bookmarks" },
   { label: "Creator Studio", icon: Radio, path: "/creator" },
-  { label: "Tickets", icon: Ticket, path: "/tickets" },
 ];
 
 const newSections = [
