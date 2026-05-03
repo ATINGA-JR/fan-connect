@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Play, Radio } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import MatchCard from "../components/MatchCard";
 
-const tabs = ["Matches", "Tables", "Stats"] as const;
+const tabs = ["Matches", "Live Streams", "Highlights", "Tables", "Stats"] as const;
 const matchFilters = ["Live", "Today", "Upcoming", "Finished"] as const;
 
 const competitions = ["All", "Premier League", "La Liga", "Champions League", "Serie A", "Bundesliga", "Ligue 1"] as const;
