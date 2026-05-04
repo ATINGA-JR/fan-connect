@@ -8,6 +8,7 @@ import { AuthProvider } from "@/hooks/use-auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import BottomNav from "./components/BottomNav";
 import FloatingPostButton from "./components/FloatingPostButton";
+import { useAuth } from "@/hooks/use-auth";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
