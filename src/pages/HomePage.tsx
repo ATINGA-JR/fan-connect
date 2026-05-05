@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Search, Bell, Menu, ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Search, Bell, Menu } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -11,59 +11,8 @@ import SideDrawer from "../components/SideDrawer";
 import BantCard from "../components/BantCard";
 import CommunityFeed from "../components/CommunityFeed";
 import kickoffLogo from "@/assets/kickoff-logo.png";
-
-const mockBants = [
-  {
-    name: "Carlos M.",
-    username: "carlos_ftbl",
-    time: "2m",
-    content: "Arsenal F.C. need a striker before next season. The creativity is there but the finishing has been awful lately. Who should they sign? 🤔",
-    tags: ["Arsenal", "Premier League"],
-    replies: 12,
-    rebants: 34,
-    likes: 89,
-  },
-  {
-    name: "Sarah K.",
-    username: "sarah_goat",
-    time: "15m",
-    content: "Vinícius Jr. is on another level this season. That dribble in the second half was absolutely filthy. Best player in the world right now.",
-    tags: ["Real Madrid", "La Liga"],
-    replies: 45,
-    rebants: 120,
-    likes: 430,
-  },
-  {
-    name: "James O.",
-    username: "james_tactic",
-    time: "32m",
-    content: "People underrate how good the Bundesliga is for developing young talent. The pathway from youth to first team is unmatched.",
-    tags: ["Bundesliga"],
-    replies: 8,
-    rebants: 22,
-    likes: 67,
-  },
-  {
-    name: "Amina B.",
-    username: "amina_blues",
-    time: "1h",
-    content: "Chelsea's midfield rebuild is actually working. The way they controlled possession against Spurs was impressive. Palmer is a generational talent.",
-    tags: ["Chelsea", "Premier League"],
-    replies: 23,
-    rebants: 56,
-    likes: 198,
-  },
-  {
-    name: "Pedro L.",
-    username: "pedro_fcb",
-    time: "2h",
-    content: "Lamine Yamal at 18 doing things most players can't do at 28. Barcelona's academy continues to produce greatness. La Masia forever. 🔴🔵",
-    tags: ["Barcelona", "La Liga"],
-    replies: 67,
-    rebants: 230,
-    likes: 1024,
-  },
-];
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 type TabId = "foryou" | "following" | "community";
 
@@ -73,9 +22,62 @@ const tabs: { id: TabId; label: string }[] = [
   { id: "community", label: "Community" },
 ];
 
+interface FeedBant {
+  id: string;
+  user_id: string;
+  content: string;
+  created_at: string;
+  profile?: { username: string | null; display_name: string | null } | null;
+}
+
+const timeAgo = (iso: string) => {
+  const diff = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+  if (diff < 60) return `${Math.floor(diff)}s`;
+  if (diff < 3600) return `${Math.floor(diff / 60)}m`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h`;
+  return `${Math.floor(diff / 86400)}d`;
+};
+
 const HomePage = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabId>("foryou");
+  const [bants, setBants] = useState<FeedBant[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { session } = useAuth();
+
+  const loadBants = async () => {
+    setLoading(true);
+    const { data: bantRows } = await supabase
+      .from("bants")
+      .select("id, user_id, content, created_at")
+      .order("created_at", { ascending: false })
+      .limit(50);
+
+    const rows = bantRows ?? [];
+    const userIds = Array.from(new Set(rows.map((b) => b.user_id)));
+    let profileMap: Record<string, { username: string | null; display_name: string | null }> = {};
+    if (userIds.length > 0) {
+      const { data: profs } = await supabase
+        .from("profiles")
+        .select("user_id, username, display_name")
+        .in("user_id", userIds);
+      profileMap = Object.fromEntries((profs ?? []).map((p) => [p.user_id, p]));
+    }
+    setBants(rows.map((b) => ({ ...b, profile: profileMap[b.user_id] ?? null })));
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (!session) return;
+    loadBants();
+    const channel = supabase
+      .channel("bants-feed")
+      .on("postgres_changes", { event: "*", schema: "public", table: "bants" }, () => loadBants())
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [session]);
 
   return (
     <div className="min-h-screen bg-background pb-16">
@@ -98,7 +100,6 @@ const HomePage = () => {
           </div>
         </div>
 
-        {/* Feed Selector Dropdown */}
         <div className="px-3 pb-3">
           <Select value={activeTab} onValueChange={(val) => setActiveTab(val as TabId)}>
             <SelectTrigger className="w-full rounded-lg border-border bg-secondary text-foreground">
@@ -119,9 +120,24 @@ const HomePage = () => {
       <div>
         {activeTab === "community" ? (
           <CommunityFeed />
+        ) : loading ? (
+          <p className="px-4 py-8 text-center text-sm text-muted-foreground">Loading bants...</p>
+        ) : bants.length === 0 ? (
+          <p className="px-4 py-12 text-center text-sm text-muted-foreground">
+            No bants yet. Tap the + button to post the first one!
+          </p>
         ) : (
-          mockBants.map((bant, i) => (
-            <BantCard key={i} {...bant} />
+          bants.map((b) => (
+            <BantCard
+              key={b.id}
+              name={b.profile?.display_name || b.profile?.username || "User"}
+              username={b.profile?.username || "user"}
+              time={timeAgo(b.created_at)}
+              content={b.content}
+              replies={0}
+              rebants={0}
+              likes={0}
+            />
           ))
         )}
       </div>
