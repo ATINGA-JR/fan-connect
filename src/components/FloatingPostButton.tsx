@@ -1,9 +1,28 @@
 import { Plus, Image, BarChart3, Hash, X } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
 
 const FloatingPostButton = () => {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
+  const [posting, setPosting] = useState(false);
+  const { user } = useAuth();
+
+  const handlePost = async () => {
+    if (!text.trim() || !user) return;
+    setPosting(true);
+    const { error } = await supabase.from("bants").insert({ user_id: user.id, content: text.trim() });
+    setPosting(false);
+    if (error) {
+      toast.error("Failed to post", { description: error.message });
+      return;
+    }
+    setText("");
+    setOpen(false);
+    toast.success("Bant posted");
+  };
 
   return (
     <>
