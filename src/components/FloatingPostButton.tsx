@@ -43,11 +43,11 @@ const FloatingPostButton = () => {
                 <X className="h-5 w-5" />
               </button>
               <button
-                onClick={() => { setOpen(false); setText(""); }}
-                disabled={!text.trim()}
+                onClick={handlePost}
+                disabled={!text.trim() || posting}
                 className="rounded-full gradient-pitch px-4 py-1.5 text-sm font-semibold text-primary-foreground disabled:opacity-40"
               >
-                Post Bant
+                {posting ? "Posting..." : "Post Bant"}
               </button>
             </div>
 
