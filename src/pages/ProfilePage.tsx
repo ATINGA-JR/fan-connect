@@ -124,7 +124,8 @@ const ProfilePage = () => {
     const { error } = await supabase.storage.from(bucket).upload(path, file, { upsert: true });
     if (error) { toast.error("Upload failed", { description: error.message }); return; }
     const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(path);
-    const { error: e2 } = await supabase.from("profiles").update({ [field]: publicUrl }).eq("user_id", user.id);
+    const update = field === "avatar_url" ? { avatar_url: publicUrl } : { cover_url: publicUrl };
+    const { error: e2 } = await supabase.from("profiles").update(update).eq("user_id", user.id);
     if (e2) { toast.error("Save failed", { description: e2.message }); return; }
     toast.success("Updated");
     loadProfile();
