@@ -33,6 +33,16 @@ const systemItems = [
 const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
   const navigate = useNavigate();
   const { theme, toggleTheme } = useTheme();
+  const { user } = useAuth();
+  const [profile, setProfile] = useState<{ username: string | null; display_name: string | null; avatar_url: string | null } | null>(null);
+
+  useEffect(() => {
+    if (!user) { setProfile(null); return; }
+    supabase.from("profiles").select("username, display_name, avatar_url").eq("user_id", user.id).maybeSingle()
+      .then(({ data }) => setProfile(data));
+  }, [user?.id, open]);
+
+  const initials = (profile?.display_name || profile?.username || "U").split(" ").map(s => s[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
 
   return (
     <>
@@ -53,13 +63,16 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
         <div className="flex h-full flex-col">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border p-4">
-            <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full gradient-pitch" />
+            <button onClick={() => { onClose(); navigate("/profile"); }} className="flex items-center gap-3 text-left">
+              <Avatar className="h-10 w-10">
+                {profile?.avatar_url && <AvatarImage src={profile.avatar_url} />}
+                <AvatarFallback className="gradient-pitch text-primary-foreground text-sm font-bold">{initials}</AvatarFallback>
+              </Avatar>
               <div>
-                <p className="text-sm font-semibold text-foreground">Football Fan</p>
-                <p className="text-xs text-muted-foreground">@kickoff_user</p>
+                <p className="text-sm font-semibold text-foreground">{profile?.display_name || profile?.username || "User"}</p>
+                <p className="text-xs text-muted-foreground">@{profile?.username || "user"}</p>
               </div>
-            </div>
+            </button>
             <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
               <X className="h-5 w-5" />
             </button>
