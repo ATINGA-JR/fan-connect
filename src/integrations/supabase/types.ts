@@ -14,12 +14,65 @@ export type Database = {
   }
   public: {
     Tables: {
+      bant_likes: {
+        Row: {
+          bant_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          bant_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          bant_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bant_likes_bant_id_fkey"
+            columns: ["bant_id"]
+            isOneToOne: false
+            referencedRelation: "bants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      bant_rebants: {
+        Row: {
+          bant_id: string
+          created_at: string
+          user_id: string
+        }
+        Insert: {
+          bant_id: string
+          created_at?: string
+          user_id: string
+        }
+        Update: {
+          bant_id?: string
+          created_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bant_rebants_bant_id_fkey"
+            columns: ["bant_id"]
+            isOneToOne: false
+            referencedRelation: "bants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       bants: {
         Row: {
           content: string
           created_at: string
           id: string
           image_url: string | null
+          parent_id: string | null
           updated_at: string
           user_id: string
         }
@@ -28,6 +81,7 @@ export type Database = {
           created_at?: string
           id?: string
           image_url?: string | null
+          parent_id?: string | null
           updated_at?: string
           user_id: string
         }
@@ -36,16 +90,26 @@ export type Database = {
           created_at?: string
           id?: string
           image_url?: string | null
+          parent_id?: string | null
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "bants_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "bants"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
           avatar_url: string | null
           bio: string | null
           country: string | null
+          cover_url: string | null
           created_at: string
           date_of_birth: string | null
           display_name: string | null
@@ -65,6 +129,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           country?: string | null
+          cover_url?: string | null
           created_at?: string
           date_of_birth?: string | null
           display_name?: string | null
@@ -84,6 +149,7 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           country?: string | null
+          cover_url?: string | null
           created_at?: string
           date_of_birth?: string | null
           display_name?: string | null
