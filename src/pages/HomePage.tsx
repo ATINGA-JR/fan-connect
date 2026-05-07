@@ -130,13 +130,11 @@ const HomePage = () => {
           bants.map((b) => (
             <BantCard
               key={b.id}
+              id={b.id}
               name={b.profile?.display_name || b.profile?.username || "User"}
               username={b.profile?.username || "user"}
               time={timeAgo(b.created_at)}
               content={b.content}
-              replies={0}
-              rebants={0}
-              likes={0}
             />
           ))
         )}
