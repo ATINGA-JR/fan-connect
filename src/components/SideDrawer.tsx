@@ -1,6 +1,10 @@
 import { X, User, Bookmark, Radio, Settings, HelpCircle, Users, Mic, ShoppingBag, Newspaper, Building2, Sun, Moon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useTheme } from "@/hooks/use-theme";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface SideDrawerProps {
   open: boolean;
