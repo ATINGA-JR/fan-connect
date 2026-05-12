@@ -35,11 +35,18 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
   const { theme, toggleTheme } = useTheme();
   const { user } = useAuth();
   const [profile, setProfile] = useState<{ username: string | null; display_name: string | null; avatar_url: string | null } | null>(null);
+  const [followCounts, setFollowCounts] = useState({ following: 0, followers: 0 });
 
   useEffect(() => {
     if (!user) { setProfile(null); return; }
     supabase.from("profiles").select("username, display_name, avatar_url").eq("user_id", user.id).maybeSingle()
       .then(({ data }) => setProfile(data));
+    Promise.all([
+      supabase.from("follows").select("*", { count: "exact", head: true }).eq("follower_id", user.id),
+      supabase.from("follows").select("*", { count: "exact", head: true }).eq("following_id", user.id),
+    ]).then(([{ count: following }, { count: followers }]) => {
+      setFollowCounts({ following: following ?? 0, followers: followers ?? 0 });
+    });
   }, [user?.id, open]);
 
   const initials = (profile?.display_name || profile?.username || "U").split(" ").map(s => s[0]).filter(Boolean).slice(0, 2).join("").toUpperCase();
@@ -81,11 +88,11 @@ const SideDrawer = ({ open, onClose }: SideDrawerProps) => {
           {/* Stats */}
           <div className="flex gap-4 border-b border-border px-4 py-3">
             <span className="text-sm">
-              <strong className="text-foreground">128</strong>{" "}
+              <strong className="text-foreground">{followCounts.following}</strong>{" "}
               <span className="text-muted-foreground">Following</span>
             </span>
             <span className="text-sm">
-              <strong className="text-foreground">1.2K</strong>{" "}
+              <strong className="text-foreground">{followCounts.followers}</strong>{" "}
               <span className="text-muted-foreground">Followers</span>
             </span>
           </div>
