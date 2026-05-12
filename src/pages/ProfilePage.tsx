@@ -58,6 +58,7 @@ const ProfilePage = () => {
   const [allBants, setAllBants] = useState<BantRow[]>([]);
   const [likedBants, setLikedBants] = useState<BantRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [followCounts, setFollowCounts] = useState({ following: 0, followers: 0 });
   const [editOpen, setEditOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [tab, setTab] = useState<TabKey>("Bants");
@@ -74,7 +75,7 @@ const ProfilePage = () => {
   const loadProfile = async () => {
     if (!user) return;
     setLoading(true);
-    const [{ data: p }, { data: b }, { data: likes }] = await Promise.all([
+    const [{ data: p }, { data: b }, { data: likes }, { count: following }, { count: followers }] = await Promise.all([
       supabase.from("profiles")
         .select("username, display_name, bio, location, avatar_url, cover_url, favorite_club, favorite_league, created_at")
         .eq("user_id", user.id).maybeSingle(),
@@ -84,10 +85,13 @@ const ProfilePage = () => {
       supabase.from("bant_likes")
         .select("bant_id, bants(id, content, created_at, parent_id, image_url)")
         .eq("user_id", user.id).order("created_at", { ascending: false }),
+      supabase.from("follows").select("*", { count: "exact", head: true }).eq("follower_id", user.id),
+      supabase.from("follows").select("*", { count: "exact", head: true }).eq("following_id", user.id),
     ]);
     setProfile(p as Profile | null);
     setAllBants((b ?? []) as BantRow[]);
     setLikedBants(((likes ?? []).map((l: any) => l.bants).filter(Boolean)) as BantRow[]);
+    setFollowCounts({ following: following ?? 0, followers: followers ?? 0 });
     setLoading(false);
   };
 
@@ -203,8 +207,8 @@ const ProfilePage = () => {
         </div>
 
         <div className="mt-3 flex gap-4 text-sm">
-          <span><strong className="text-foreground">0</strong> <span className="text-muted-foreground">Following</span></span>
-          <span><strong className="text-foreground">0</strong> <span className="text-muted-foreground">Followers</span></span>
+          <span><strong className="text-foreground">{followCounts.following}</strong> <span className="text-muted-foreground">Following</span></span>
+          <span><strong className="text-foreground">{followCounts.followers}</strong> <span className="text-muted-foreground">Followers</span></span>
         </div>
       </div>
 
